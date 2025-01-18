@@ -21,28 +21,32 @@ def init(input_size, hidden_size):
     fg_b = np.zeros(hidden_size)
 
 
-  #INPUT CANDIDATE CELL WEIGHTS
+    #INPUT CANDIDATE CELL WEIGHTS
     ic_i_w = uniform_xavier(input_size, hidden_size)
-    ic_h_w = uniform_xavier(input_size, hidden_size)
+    ic_h_w = uniform_xavier(hidden_size, hidden_size)
     #INPUT CANDIDATE CELL BIAS
     ic_b = np.zeros(hidden_size)
 
     #INPUT GATE WEIGHTS
     ig_i_w = uniform_xavier(input_size, hidden_size)
-    ig_h_w = uniform_xavier(input_size, hidden_size)
+    ig_h_w = uniform_xavier(hidden_size, hidden_size)
     #INPUT GATE BIAS
     ig_b = np.zeros(hidden_size)
 
 
     #OUTPUT GATE WEIGHTS
     og_i_w = uniform_xavier(input_size, hidden_size)
-    og_h_w = uniform_xavier(input_size, hidden_size)
+    og_h_w = uniform_xavier(hidden_size, hidden_size)
     #OUPUT GATE BIAS
     og_b = np.zeros(hidden_size)
 
-    return [(fg_i_w, fg_h_w, fg_b), (ic_i_w, ic_h_w, ic_b), (ig_i_w, ig_h_w, ig_b), (og_i_w, og_h_w, og_b)]
+    return {'forget_gate_weights': [fg_i_w, fg_h_w, fg_b], 
+            'input_gate_candidate_weights': [ic_i_w, ic_h_w, ic_b], 
+            'input_gate_weights': [ig_i_w, ig_h_w, ig_b], 
+            'output_gate_weights': [og_i_w, og_h_w, og_b]}
 
     
 if __name__ == '__main__':
     #test case
-    print(init(5, 12))
+    weights = init(3, 4)
+    print(weights['forget_gate_weights'])
