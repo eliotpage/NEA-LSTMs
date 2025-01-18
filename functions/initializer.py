@@ -16,7 +16,7 @@ def init(input_size, hidden_size):
 
     #FORGET GATE WEIGHTS
     fg_i_w = uniform_xavier(input_size, hidden_size)
-    fg_h_w = uniform_xavier(input_size, hidden_size)
+    fg_h_w = uniform_xavier(hidden_size, hidden_size)
     #FORGET GATE BIAS
     fg_b = np.zeros(hidden_size)
 

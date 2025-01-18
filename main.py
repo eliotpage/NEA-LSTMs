@@ -66,3 +66,4 @@ if __name__ == '__main__':
     print(hidden_state, cell_state)
     foward_pass(2)
     print(hidden_state, cell_state)
+    
