@@ -7,13 +7,13 @@ def forget_gate(weights, input, hidden_state, debug=False):
     Wf, Uf, Bf = weights
     input = input.reshape(-1, 1)
     hidden_state = hidden_state.reshape(-1, 1)
-    
-    print(hidden_state.shape, Uf.shape, input.shape, Wf.shape, Bf.shape)
+    Bf = Bf.reshape(-1, 1)
 
     sum = (Uf @ hidden_state) + (Wf @ input) + Bf
 
     if debug:
         print('FORGET GATE:')
+        print(f'shapes (hidden, Uf, input, Wf, Bf): {hidden_state.shape, Uf.shape, input.shape, Wf.shape, Bf.shape}')
         print(f'weights:{weights}\n\nWf:{Wf}\n\nUf:{Uf}\n\nBf:{Bf}\n\nhidden:{hidden_state}\n\ninput:{input}\n\nformula:{hidden_state} * {Uf} + {input} * {Wf} + {Bf}\n\nsum:{sum}')
 
     #PLUG VALUE INTO SIGMOID ACTIVATION FUNCTION: f(x) = -1/1+e^-x
@@ -29,14 +29,17 @@ def forget_gate(weights, input, hidden_state, debug=False):
 #BOTH USE THE INPUT AND HIDDEN STATE (SHORT TERM MEMORY) TO DO SO
 def input_gate_candidate(weights, input, hidden_state, debug=False):
     import numpy as np
-    Wf = weights[0][0]
-    Uf = weights[0][1]
-    Bf = weights[0][2]
+    #UNPACK WEIGHTS AND REFORMAT INPUT AND HIDDEN STATE INTO MATRICES
+    Wf, Uf, Bf = weights[0]
+    input = input.reshape(-1, 1)
+    hidden_state = hidden_state.reshape(-1, 1)
+    Bf = Bf.reshape(-1, 1)
     
-    sum = hidden_state * Uf + input * Wf + Bf
+    sum = (Uf @ hidden_state) + (Wf @ input) + Bf
 
     if debug:
         print('INPUT CANDIDATE GATE:')
+        print(f'shapes (hidden, Uf, input, Wf, Bf): {hidden_state.shape, Uf.shape, input.shape, Wf.shape, Bf.shape}')
         print(f'weights:{weights}\n\nWf:{Wf}\n\nUf:{Uf}\n\nBf:{Bf}\n\nhidden:{hidden_state}\n\ninput:{input}\n\nformula:{hidden_state} * {Uf} + {input} * {Wf} + {Bf}\n\nsum:{sum}')
 
     #PLUG VALUE INTO TANH ACTIVATION FUNCTION: f(x) = (e^x-e^-x)/(e^x+e^-x)
@@ -48,14 +51,17 @@ def input_gate_candidate(weights, input, hidden_state, debug=False):
 
 def input_gate(weights, input, hidden_state, debug=False):
     import numpy as np
-    Wf = weights[1][0]
-    Uf = weights[1][1]
-    Bf = weights[1][2]
+    #UNPACK WEIGHTS AND REFORMAT INPUT AND HIDDEN STATE INTO MATRICES
+    Wf, Uf, Bf = weights[1]
+    input = input.reshape(-1, 1)
+    hidden_state = hidden_state.reshape(-1, 1)
+    Bf = Bf.reshape(-1, 1)
     
-    sum = hidden_state * Uf + input * Wf + Bf
+    sum = (Uf @ hidden_state) + (Wf @ input) + Bf
 
     if debug:
         print('INPUT GATE:')
+        print(f'shapes (hidden, Uf, input, Wf, Bf): {hidden_state.shape, Uf.shape, input.shape, Wf.shape, Bf.shape}')
         print(f'weights:{weights}\n\nWf:{Wf}\n\nUf:{Uf}\n\nBf:{Bf}\n\nhidden:{hidden_state}\n\ninput:{input}\n\nformula:{hidden_state} * {Uf} + {input} * {Wf} + {Bf}\n\nsum:{sum}')
 
     #PLUG VALUE INTO SIGMOID ACTIVATION FUNCTION: f(x) = -1/1+e^-x
@@ -82,14 +88,17 @@ def output_gate_candidate(cell_state):
 
 def output_gate(weights, input, hidden_state, cell_state, debug=False):
     import numpy as np
-    Wf = weights[0]
-    Uf = weights[1]
-    Bf = weights[2]
+    #UNPACK WEIGHTS AND REFORMAT INPUT AND HIDDEN STATE INTO MATRICES
+    Wf, Uf, Bf = weights
+    input = input.reshape(-1, 1)
+    hidden_state = hidden_state.reshape(-1, 1)
+    Bf = Bf.reshape(-1, 1)
 
-    sum = hidden_state * Uf + input * Wf + Bf
+    sum = (Uf @ hidden_state) + (Wf @ input) + Bf
 
     if debug:
         print('OUTPUT GATE:')
+        print(f'shapes (hidden, Uf, input, Wf, Bf): {hidden_state.shape, Uf.shape, input.shape, Wf.shape, Bf.shape}')
         print(f'weights:{weights}\n\nWf:{Wf}\n\nUf:{Uf}\n\nBf:{Bf}\n\nhidden:{hidden_state}\n\ninput:{input}\n\nformula:{hidden_state} * {Uf} + {input} * {Wf} + {Bf}\n\nsum:{sum}')
 
     #PLUG VALUE INTO SIGMOID ACTIVATION FUNCTION: f(x) = -1/1+e^-x
@@ -100,3 +109,4 @@ def output_gate(weights, input, hidden_state, cell_state, debug=False):
     Ct = output_gate_candidate(cell_state)
 
     return Ft * Ct
+

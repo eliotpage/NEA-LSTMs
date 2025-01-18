@@ -15,30 +15,34 @@ def init(input_size, hidden_size):
     # `-> OUTPUT POTENTIAL GATE HAS NO WEIGHTS OR BIASES
 
     #FORGET GATE WEIGHTS
-    fg_i_w = uniform_xavier(input_size, hidden_size)
+    fg_i_w = uniform_xavier(hidden_size, input_size)
     fg_h_w = uniform_xavier(hidden_size, hidden_size)
     #FORGET GATE BIAS
     fg_b = np.zeros(hidden_size)
 
 
     #INPUT CANDIDATE CELL WEIGHTS
-    ic_i_w = uniform_xavier(input_size, hidden_size)
+    ic_i_w = uniform_xavier(hidden_size, input_size)
     ic_h_w = uniform_xavier(hidden_size, hidden_size)
     #INPUT CANDIDATE CELL BIAS
     ic_b = np.zeros(hidden_size)
 
     #INPUT GATE WEIGHTS
-    ig_i_w = uniform_xavier(input_size, hidden_size)
+    ig_i_w = uniform_xavier(hidden_size, input_size)
     ig_h_w = uniform_xavier(hidden_size, hidden_size)
     #INPUT GATE BIAS
     ig_b = np.zeros(hidden_size)
 
 
     #OUTPUT GATE WEIGHTS
-    og_i_w = uniform_xavier(input_size, hidden_size)
+    og_i_w = uniform_xavier(hidden_size, input_size)
     og_h_w = uniform_xavier(hidden_size, hidden_size)
     #OUPUT GATE BIAS
     og_b = np.zeros(hidden_size)
+
+
+    #CREATE A UNIQUE SEED REPRESENTING THE WEIGHTS TO REPLICATE IF NEEDED
+    
 
     return {'forget_gate_weights': [fg_i_w, fg_h_w, fg_b], 
             'input_gate_candidate_weights': [ic_i_w, ic_h_w, ic_b], 

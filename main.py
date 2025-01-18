@@ -4,11 +4,11 @@ from functions.gates import *
 
 
 #CONSTANTS
-INPUT_SIZE = 5
-HIDDEN_SIZE = 3
+INPUT_SIZE = 1
+HIDDEN_SIZE = 1
 
 #INITIAL VALUES
-hidden_state = np.zeros((HIDDEN_SIZE, 1))  # shape (3, 1)
+hidden_state = np.zeros((HIDDEN_SIZE, 1))
 cell_state = np.zeros((HIDDEN_SIZE, 1))
 weights = initialize_weights(INPUT_SIZE, HIDDEN_SIZE)
 
@@ -23,7 +23,7 @@ def foward_pass(input, hidden_state, cell_state, debug=False):
     input_gate_weights = [weights['input_gate_candidate_weights'], weights['input_gate_weights']]
     output_gate_weights = weights['output_gate_weights']
 
-    input = np.array([input[0], input[1], input[2], input[3], input[4]])
+    input = np.array([input])
 
 
     if debug:
@@ -44,7 +44,7 @@ def foward_pass(input, hidden_state, cell_state, debug=False):
 
     #UPDATE CELL STATE USING INPUT GATE
     if debug:
-        print(f'\nIt: {input_gate((input_gate_weights, weights[2]), input, hidden_state)}')
+        print(f'\nIt: {input_gate(input_gate_weights, input, hidden_state, debug=debug)}')
 
     cell_state += input_gate(input_gate_weights, input, hidden_state, debug=debug)
 
@@ -67,5 +67,20 @@ def foward_pass(input, hidden_state, cell_state, debug=False):
 
 
 if __name__ == '__main__': 
-    foward_pass((1, 2, 1, 2, 1), hidden_state, cell_state, debug=True)
+    hidden_state, cell_state = foward_pass((1), hidden_state, cell_state)
+    hidden_state, cell_state = foward_pass((2), hidden_state, cell_state)
+    hidden_state, cell_state = foward_pass((1), hidden_state, cell_state)
+    hidden_state, cell_state = foward_pass((2), hidden_state, cell_state)
+    hidden_state, cell_state = foward_pass((1), hidden_state, cell_state)
+    hidden_state, cell_state = foward_pass((2), hidden_state, cell_state)
+    hidden_state, cell_state = foward_pass((1), hidden_state, cell_state)
+    hidden_state, cell_state = foward_pass((2), hidden_state, cell_state)
+    hidden_state, cell_state = foward_pass((1), hidden_state, cell_state)
+    hidden_state, cell_state = foward_pass((2), hidden_state, cell_state)
+    hidden_state, cell_state = foward_pass((1), hidden_state, cell_state)
+    hidden_state, cell_state = foward_pass((2), hidden_state, cell_state)
+    hidden_state, cell_state = foward_pass((1), hidden_state, cell_state)
+    hidden_state, cell_state = foward_pass((2), hidden_state, cell_state)
+    hidden_state, cell_state = foward_pass((1), hidden_state, cell_state)
+    hidden_state, cell_state = foward_pass((2), hidden_state, cell_state)
     print(hidden_state, cell_state)
