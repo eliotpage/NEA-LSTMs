@@ -5,12 +5,12 @@ def forget_gate(weights, input, hidden_state, debug=False):
     import numpy as np
     #UNPACK WEIGHTS AND REFORMAT INPUT AND HIDDEN STATE INTO MATRICES
     Wf, Uf, Bf = weights
-    input = np.reshape(input, (-1, 1))
-    hidden_state = np.reshape(hidden_state, (-1, 1))
+    input = input.reshape(-1, 1)
+    hidden_state = hidden_state.reshape(-1, 1)
     
     print(hidden_state.shape, Uf.shape, input.shape, Wf.shape, Bf.shape)
 
-    sum = (hidden_state @ Uf) + (input @ Wf) + Bf
+    sum = (Uf @ hidden_state) + (Wf @ input) + Bf
 
     if debug:
         print('FORGET GATE:')

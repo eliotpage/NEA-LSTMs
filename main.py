@@ -67,5 +67,5 @@ def foward_pass(input, hidden_state, cell_state, debug=False):
 
 
 if __name__ == '__main__': 
-    foward_pass(1, hidden_state, cell_state, debug=True)
+    foward_pass((1, 2, 1, 2, 1), hidden_state, cell_state, debug=True)
     print(hidden_state, cell_state)
