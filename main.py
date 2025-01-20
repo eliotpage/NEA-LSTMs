@@ -4,8 +4,8 @@ from functions.gates import *
 
 
 #CONSTANTS
-INPUT_SIZE = 1
-HIDDEN_SIZE = 1
+INPUT_SIZE = 5
+HIDDEN_SIZE = 12
 
 #INITIAL VALUES
 hidden_state = np.zeros((HIDDEN_SIZE, 1))
@@ -66,21 +66,20 @@ def foward_pass(input, hidden_state, cell_state, debug=False):
     return hidden_state, cell_state
 
 
+def convert_output(last_hidden_state):
+    output_weight, output_bias = weights['output_layer_weights']
+
+    output_bias = output_bias.reshape(-1, 1)
+
+    return (output_weight @ last_hidden_state) + output_bias
+
+
 if __name__ == '__main__': 
-    hidden_state, cell_state = foward_pass((1), hidden_state, cell_state)
-    hidden_state, cell_state = foward_pass((2), hidden_state, cell_state)
-    hidden_state, cell_state = foward_pass((1), hidden_state, cell_state)
-    hidden_state, cell_state = foward_pass((2), hidden_state, cell_state)
-    hidden_state, cell_state = foward_pass((1), hidden_state, cell_state)
-    hidden_state, cell_state = foward_pass((2), hidden_state, cell_state)
-    hidden_state, cell_state = foward_pass((1), hidden_state, cell_state)
-    hidden_state, cell_state = foward_pass((2), hidden_state, cell_state)
-    hidden_state, cell_state = foward_pass((1), hidden_state, cell_state)
-    hidden_state, cell_state = foward_pass((2), hidden_state, cell_state)
-    hidden_state, cell_state = foward_pass((1), hidden_state, cell_state)
-    hidden_state, cell_state = foward_pass((2), hidden_state, cell_state)
-    hidden_state, cell_state = foward_pass((1), hidden_state, cell_state)
-    hidden_state, cell_state = foward_pass((2), hidden_state, cell_state)
-    hidden_state, cell_state = foward_pass((1), hidden_state, cell_state)
-    hidden_state, cell_state = foward_pass((2), hidden_state, cell_state)
-    print(hidden_state, cell_state)
+
+    for i in [[1, 2, 3, 4, 5], 
+              [1, 2, 3, 4, 5], 
+              [1, 2, 3, 4 , 5]]:
+        
+        hidden_state, cell_state = foward_pass((i), hidden_state, cell_state)
+
+    print(convert_output(hidden_state))

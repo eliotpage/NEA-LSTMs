@@ -40,6 +40,11 @@ def init(input_size, hidden_size):
     #OUPUT GATE BIAS
     og_b = np.zeros(hidden_size)
 
+    #OUTPUT LAYER WEIGHT
+    output_weight = uniform_xavier(input_size, hidden_size)
+    #OUPUT LAYER BIAS
+    output_bias = np.zeros(input_size)
+
 
     #CREATE A UNIQUE SEED REPRESENTING THE WEIGHTS TO REPLICATE IF NEEDED
     
@@ -47,7 +52,8 @@ def init(input_size, hidden_size):
     return {'forget_gate_weights': [fg_i_w, fg_h_w, fg_b], 
             'input_gate_candidate_weights': [ic_i_w, ic_h_w, ic_b], 
             'input_gate_weights': [ig_i_w, ig_h_w, ig_b], 
-            'output_gate_weights': [og_i_w, og_h_w, og_b]}
+            'output_gate_weights': [og_i_w, og_h_w, og_b],
+            'output_layer_weights': [output_weight, output_bias]}
 
     
 if __name__ == '__main__':
