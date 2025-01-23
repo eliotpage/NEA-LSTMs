@@ -5,7 +5,7 @@ from functions.bptt import *
 
 
 #CONSTANTS
-INPUT_SIZE = 5
+INPUT_SIZE = 3
 HIDDEN_SIZE = 12
 
 #INITIAL VALUES
@@ -77,17 +77,19 @@ def convert_output(last_hidden_state):
 
 if __name__ == '__main__': 
 
-    for i in [[1, 1, 1, 1, 1], 
-              [2, 2, 2, 2, 2], 
-              [3, 3, 3, 3, 3],
-              [1, 1, 1, 1, 1], 
-              [2, 2, 2, 2, 2], 
-              [3, 3, 3, 3, 3],
-              [1, 1, 1, 1, 1], 
-              [2, 2, 2, 2, 2], 
-              [3, 3, 3, 3, 3]]:
+    for i in [[1, 1, 1], 
+              [2, 2, 2], 
+              [3, 3, 3],
+              [1, 1, 1], 
+              [2, 2, 2], 
+              [3, 3, 3],
+              [1, 1, 1], 
+              [2, 2, 2], 
+              [3, 3, 3]]:
         
         hidden_state, cell_state = foward_pass((i), hidden_state, cell_state)
 
     prediction = convert_output(hidden_state)
-    print(loss_mse(prediction, [1, 1, 1, 1, 1]))
+    loss = loss_mse(prediction, target=np.array([1, 1, 1]))
+    print(loss)
+    print(find_grad(loss, prediction))
